@@ -1,14 +1,15 @@
 package main
 
+// import "fmt"
+
 var tok Token
 
 func accept(typ int) bool {
 	if tok.tokenType == typ {
 		tok = nextTok()
 		return true
-	} else {
-		return false
 	}
+	return false
 }
 
 func accept_two(type1, type2 int) bool {
@@ -16,9 +17,8 @@ func accept_two(type1, type2 int) bool {
 		accept(type1)
 		accept(type2)
 		return true
-	} else {
-		return true
 	}
+	return false
 }
 
 func expect(typ int) {

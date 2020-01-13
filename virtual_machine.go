@@ -2,11 +2,11 @@ package main
 
 import "fmt"
 
-var curByte = 0
+var curByte = -1
 
 func nextByte() int {
 	curByte += 1
-	return curByte
+	return obj[curByte]
 }
 
 func run() {

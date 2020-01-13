@@ -9,7 +9,7 @@ type TableItem struct {
 }
 
 var (
-	symbol_table [MAX_SYMBOL_TABLE_SIZE]TableItem
+	symbol_table = make([]TableItem, MAX_SYMBOL_TABLE_SIZE)
 	table_size   = 0
 )
 

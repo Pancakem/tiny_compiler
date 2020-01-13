@@ -3,20 +3,20 @@ package main
 import (
 	//"os"
 	"bufio"
+	//"fmt"
 	"unicode"
 )
 
 const (
 	EOP = -1
-	_   = iota
-	ID
-	NUM
-	OP1
-	OP2
-	LBR
-	RBR
-	SEM
-	EQ
+	ID  = 1
+	NUM = 2
+	OP1 = 3
+	OP2 = 4
+	LBR = 5
+	RBR = 6
+	SEM = 7
+	EQ  = 8
 )
 
 const MAX_LEN = 100
@@ -73,21 +73,20 @@ eat:
 			// ID
 			if unicode.IsLetter(ch) {
 				idName := make([]rune, 0)
-				len := 0
 				idName = append(idName, ch)
-				len += 1
 
+				source.Scan()
 				for {
 					ch = rune(source.Text()[0])
 					idName = append(idName, ch)
-					len += 1
-					if unicode.IsLetter(ch) || unicode.IsDigit(ch) {
+					if !unicode.IsLetter(ch) && !unicode.IsDigit(ch) {
 						break
 					}
+					source.Scan()
 				}
 
 				// idName[len-1] = \0
-				idName = append(idName, '0')
+				// idName = append(idName, '/0')
 
 				tok.tokenType = ID
 				tok.attr = addSym(string(idName))

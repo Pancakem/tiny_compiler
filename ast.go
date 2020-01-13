@@ -1,15 +1,15 @@
 package main
 
 const (
-	SEQ_TYPE = iota
-	SET_TYPE
-	ADD_TYPE
-	SUB_TYPE
-	MUL_TYPE
-	DIV_TYPE
-	VAR_TYPE
-	NUM_TYPE
-	RET_TYPE
+	SEQ_TYPE = 0
+	SET_TYPE = 1
+	ADD_TYPE = 2
+	SUB_TYPE = 3
+	MUL_TYPE = 4
+	DIV_TYPE = 5
+	VAR_TYPE = 6
+	NUM_TYPE = 7
+	RET_TYPE = 8
 )
 
 type Node struct {

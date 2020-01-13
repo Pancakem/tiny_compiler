@@ -29,8 +29,9 @@ func main() {
 	}
 
 	source = bufio.NewScanner(strings.NewReader(string(filebuffer)))
-	tok = nextTok()
+	source.Split(bufio.ScanRunes)
 
+	tok = nextTok()
 	compile(parse())
 
 	fmt.Println("Generated ASM:\n")

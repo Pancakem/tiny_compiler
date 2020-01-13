@@ -1,13 +1,13 @@
 package main
 
 const (
-	PUSH = iota
-	POP
-	READ
-	WRITE
-	ADD
-	SUB
-	MUL
-	DIV
-	RET
+	PUSH  = 0
+	POP   = 1
+	READ  = 2
+	WRITE = 3
+	ADD   = 4
+	SUB   = 5
+	MUL   = 6
+	DIV   = 7
+	RET   = 8
 )
