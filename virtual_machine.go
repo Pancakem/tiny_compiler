@@ -49,7 +49,7 @@ next_op:
 		goto next_op
 	case RET:
 		for i = 0; i < table_size; i++ {
-			fmt.Printf("%s = %i\n", getSym(i).name, getSym(i).val)
+			fmt.Printf("%s = %d\n", getSym(i).name, getSym(i).val)
 		}
 
 		return

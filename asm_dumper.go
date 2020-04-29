@@ -12,7 +12,7 @@ func printAsm() {
 		switch currentByte {
 		case PUSH:
 			i += 1
-			fmt.Printf("PUSH %i\n", obj[i])
+			fmt.Printf("PUSH %d\n", obj[i])
 		case READ:
 			i += 1
 			currentByte = obj[i]
@@ -30,7 +30,8 @@ func printAsm() {
 		case DIV:
 			fmt.Println("DIV POP, POP\n")
 		}
-
+		i += 1
 		currentByte = obj[i]
 	}
+	fmt.Print("RET \n")
 }
