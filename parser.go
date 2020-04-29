@@ -1,7 +1,5 @@
 package main
 
-// import "fmt"
-
 var tok Token
 
 func accept(typ int) bool {
@@ -84,7 +82,6 @@ func expr() *Node {
 func parse() *Node {
 	node := Node{}
 	node.op1 = expr()
-
 	expect(SEM)
 
 	if tok.tokenType != EOP {

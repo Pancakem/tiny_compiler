@@ -4,7 +4,7 @@ const MAXPROGRAMSIZE = 300
 
 var (
 	obj = make([]int, MAXPROGRAMSIZE)
-	cur = 0
+	cur = -1
 )
 
 func gen(code int) {
