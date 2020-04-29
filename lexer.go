@@ -1,9 +1,7 @@
 package main
 
 import (
-	//"os"
 	"bufio"
-	//"fmt"
 	"unicode"
 )
 
@@ -27,7 +25,7 @@ type Token struct {
 }
 
 var (
-	source   *bufio.Scanner
+	source   *bufio.Reader
 	lookDone = false
 	lookTok  Token
 )
@@ -43,10 +41,12 @@ func nextTok() Token {
 	}
 
 eat:
-	if source.Scan() {
-		ch = rune(source.Text()[0])
+
+	ch, _, err := source.ReadRune()
+	if err == nil {
 		switch ch {
 		case ' ':
+			fallthrough
 		case '\n':
 			goto eat
 		case '+':
@@ -75,45 +75,44 @@ eat:
 				idName := make([]rune, 0)
 				idName = append(idName, ch)
 
-				source.Scan()
-				for {
-					ch = rune(source.Text()[0])
-					idName = append(idName, ch)
-					if !unicode.IsLetter(ch) && !unicode.IsDigit(ch) {
-						break
+				for unicode.IsLetter(ch) || unicode.IsDigit(ch) {
+					ch, _, err = source.ReadRune()
+					if err != nil {
+						fatalError("lexer: unexpected end of input")
 					}
-					source.Scan()
+					idName = append(idName, ch)
 				}
-
-				// idName[len-1] = \0
-				// idName = append(idName, '/0')
 
 				tok.tokenType = ID
 				tok.attr = addSym(string(idName))
 				// NUM
 			} else if unicode.IsDigit(ch) {
-				val := ch - '0'
-
-				for source.Scan() {
-					if unicode.IsDigit(rune(source.Text()[0])) {
-						val = val*10 + (ch - '0')
+				val := int(ch - '0')
+				for {
+					ch, _, err := source.ReadRune()
+					if err != nil {
+						break
+					}
+					if unicode.IsDigit(ch) {
+						val = val*10 + int(ch-'0')
 					} else {
 						break
 					}
 				}
 
 				tok.tokenType = NUM
-				tok.attr = int(val)
+				tok.attr = val
 				// ERROR
 			} else {
-				fatalError("Lexer: unexpected symbol")
+				fatalError("lexer: unexpected symbol")
 			}
+
+			source.UnreadRune()
 		}
 	} else {
 		// EOF
 		tok.tokenType = EOP
 	}
-
 	return tok
 
 }

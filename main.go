@@ -3,10 +3,8 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"os"
-	"strings"
 )
 
 const (
@@ -23,13 +21,12 @@ func main() {
 		log.Fatal("No source provided!\nUsage: compiler source")
 	}
 
-	filebuffer, err := ioutil.ReadFile(argv[SOURCE_ARG])
+	file, err := os.Open(argv[1])
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	source = bufio.NewScanner(strings.NewReader(string(filebuffer)))
-	source.Split(bufio.ScanRunes)
+	source = bufio.NewReader(file)
 
 	tok = nextTok()
 	compile(parse())
