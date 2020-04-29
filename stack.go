@@ -1,25 +1,36 @@
 package main
 
-type StackItem struct {
-	val  int
-	next *StackItem
+type Stack struct {
+	stack []int
+	size  int
 }
 
-var head *StackItem
+var stack *Stack
+
+// will init stack
+func init() {
+	initStack()
+}
+
+func initStack() {
+	internal := make([]int, 0)
+	stack = &Stack{stack: internal, size: 0}
+}
 
 func push(val int) {
-	item := StackItem{}
-	item.val = val
-	item.next = head
-	head = &item
+	stack.size += 1
+	stack.stack = append(stack.stack, val)
 }
 
 func pop() int {
-	val := head.val
-	head = head.next
+	stack.size -= 1
+	val := stack.stack[stack.size]
+	replacementSlice := make([]int, stack.size)
+	copy(replacementSlice, stack.stack)
+	stack.stack = replacementSlice
 	return val
 }
 
 func empty() bool {
-	return head == nil
+	return stack.size == 0
 }
